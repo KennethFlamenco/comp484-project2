@@ -87,3 +87,8 @@ footer a {
   text-align: center;
   min-height: 25px;
 }
+
+.disabled-btn {
+  opacity: 0.4;
+  pointer-events: none;
+}
