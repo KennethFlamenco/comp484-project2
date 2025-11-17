@@ -88,6 +88,7 @@ footer a {
   min-height: 25px;
 }
 
+/*visual for disabling the button*/
 .disabled-btn {
   opacity: 0.4;
   pointer-events: none;
