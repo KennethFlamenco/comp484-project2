@@ -14,6 +14,39 @@ $(function () { // Makes sure that your function is called once all the DOM elem
 
 })
 
+const sounds = {
+  treat: new Audio("sounds/dog-eating-biscuits-32876.mp3"),
+  play: new Audio("sounds/animated-dog-panting-287307.mp3"),
+  exercise: new Audio("sounds/dog-barking-406629.mp3"),
+  attack: new Audio("sounds/dog-growl-61002.mp3"),
+}
+
+let currentSound = null; // reference the current sound being played
+
+//play sound function
+function playSound(sound) {
+  // stops sound if new sound is played
+  if (currentSound) {
+    currentSound.pause();
+    currentSound.currentTime = 0;
+  }
+  //start new sound
+  if (sound) {
+    sound.currentTime = 0;
+    sound.play().catch(() => { }); //stops autoplay
+
+    currentSound = sound;
+
+    setTimeout(() => {
+      if (currentSound === sound) {   // only stop if it's still the active one
+        currentSound.pause();
+        currentSound.currentTime = 0;
+        currentSound = null;
+      }
+    }, 3000);
+  }
+}
+
 // Add a variable "pet_info" equal to a object with the name (string), weight (number), and happiness (number) of your pet
 var pet_info = { name: "Onyx", weight: "70", happiness: "8" };
 
@@ -22,6 +55,7 @@ function clickedTreatButton() {
   pet_info.happiness = parseInt(pet_info.happiness) + 4;
   //Increase pet weight
   pet_info.weight = parseInt(pet_info.weight) + 1;
+  playSound(sounds.treat);
   showPetMessage("Bark!");
   checkAndUpdatePetInfoInHtml();
 }
@@ -31,6 +65,7 @@ function clickedPlayButton() {
   pet_info.happiness = parseInt(pet_info.happiness) + 3;
   // Decrease pet weight
   pet_info.weight = parseInt(pet_info.weight) - 1;
+  playSound(sounds.play);
   showPetMessage("GIMMIE THE BALL!");
   checkAndUpdatePetInfoInHtml();
 }
@@ -40,6 +75,7 @@ function clickedExerciseButton() {
   pet_info.happiness = parseInt(pet_info.happiness) - 2;
   // Decrease pet weight
   pet_info.weight = parseInt(pet_info.weight) - 2;
+  playSound(sounds.exercise);
   showPetMessage("RUFF RUFF!")
   checkAndUpdatePetInfoInHtml();
 }
@@ -47,6 +83,7 @@ function clickedExerciseButton() {
 function clickedAttackButton() {
   // Set Pet happines to zero
   pet_info.happiness = 0;
+  playSound(sounds.attack);
   showPetMessage("GRRR! GRR!");
   checkAndUpdatePetInfoInHtml();
 }
