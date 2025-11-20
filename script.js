@@ -48,13 +48,15 @@ function playSound(sound) {
 }
 
 // Add a variable "pet_info" equal to a object with the name (string), weight (number), and happiness (number) of your pet
-var pet_info = { name: "Onyx", weight: "70", happiness: "8" };
+var pet_info = { name: "Onyx", weight: "70", happiness: "8", energy: "50" };
 
 function clickedTreatButton() {
   //Increase pet happiness parseInt because if not it would add to string
   pet_info.happiness = parseInt(pet_info.happiness) + 4;
   //Increase pet weight
   pet_info.weight = parseInt(pet_info.weight) + 1;
+  //Increase energy
+  pet_info.energy = parseInt(pet_info.energy) + 10;
   playSound(sounds.treat);
   showPetMessage("Bark!");
   checkAndUpdatePetInfoInHtml();
@@ -65,6 +67,8 @@ function clickedPlayButton() {
   pet_info.happiness = parseInt(pet_info.happiness) + 3;
   // Decrease pet weight
   pet_info.weight = parseInt(pet_info.weight) - 1;
+  //Decrease energy
+  pet_info.energy = parseInt(pet_info.energy) - 5;
   playSound(sounds.play);
   showPetMessage("GIMMIE THE BALL!");
   checkAndUpdatePetInfoInHtml();
@@ -75,14 +79,19 @@ function clickedExerciseButton() {
   pet_info.happiness = parseInt(pet_info.happiness) - 2;
   // Decrease pet weight
   pet_info.weight = parseInt(pet_info.weight) - 2;
+  //Decrease energy
+  pet_info.energy = parseInt(pet_info.energy) - 10;
   playSound(sounds.exercise);
   showPetMessage("RUFF RUFF!")
   checkAndUpdatePetInfoInHtml();
 }
 
+//NEW FUNCTION SO THE PET CAN ATTACK
 function clickedAttackButton() {
   // Set Pet happines to zero
   pet_info.happiness = 0;
+  //Decrease energy
+  pet_info.energy = parseInt(pet_info.energy) - 20;
   playSound(sounds.attack);
   showPetMessage("GRRR! GRR!");
   checkAndUpdatePetInfoInHtml();
@@ -101,6 +110,10 @@ function checkWeightAndHappinessBeforeUpdating() {
   // makes sure visual number doesnt go past 0
   if (parseInt(pet_info.happiness) <= 0) {
     pet_info.happiness = 0;
+  }
+
+  if (parseInt(pet_info.energy) <= 0) {
+    pet_info.energy = 0;
   }
 
   if (pet_info.weight === 0 || pet_info.happiness === 0) {
@@ -125,6 +138,7 @@ function updatePetInfoInHtml() {
   $('.name').text(pet_info['name']);
   $('.weight').text(pet_info['weight']);
   $('.happiness').text(pet_info['happiness']);
+  $('.energy').text(pet_info['energy']);
 }
 
 function showPetMessage(message) {
@@ -133,6 +147,9 @@ function showPetMessage(message) {
   box.text(message);
   box.addClass('visible');
   box.show();
+  /*****************************************************************
+   USW OF .delay() and .fadeOut() METHOD
+   ****************************************************************/
   box.delay(3000); // waits 3 seconds until the next command is caleld
   box.fadeOut(2000); // messages fades away for 2 seconds
 }
