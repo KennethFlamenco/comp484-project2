@@ -43,7 +43,7 @@ function playSound(sound) {
         currentSound.currentTime = 0;
         currentSound = null;
       }
-    }, 3000);
+    }, 3000); // stops after 3 seconds
   }
 }
 
@@ -116,6 +116,15 @@ function checkWeightAndHappinessBeforeUpdating() {
     pet_info.energy = 0;
   }
 
+  // if the pet has below 20 energy than the attack button is disabled
+  if (pet_info.energy <= 20) {
+    $('.attack-button').prop('disabled', true);
+    $('.attack-button').addClass('disabled-btn');
+  } else {
+    $('.attack-button').prop('disabled', false);
+    $('.attack-button').removeClass('disabled-btn');
+  }
+
   if (pet_info.weight === 0 || pet_info.happiness === 0) {
     // disable play + exercise buttons when either is 0
     $('.play-button').prop('disabled', true);
@@ -143,7 +152,7 @@ function updatePetInfoInHtml() {
 
 function showPetMessage(message) {
   const box = $('.pet-message');
-  box.stop(true, true);
+  box.stop(true, true); //stops from other messages and animations from stacking
   box.text(message);
   box.addClass('visible');
   box.show();
