@@ -80,7 +80,7 @@ function clickedExerciseButton() {
   // Decrease pet weight
   pet_info.weight = parseInt(pet_info.weight) - 2;
   //Decrease energy
-  pet_info.energy = parseInt(pet_info.energy) - 10;
+  pet_info.energy = parseInt(pet_info.energy) - 5;
   playSound(sounds.exercise);
   showPetMessage("RUFF RUFF!")
   checkAndUpdatePetInfoInHtml();
