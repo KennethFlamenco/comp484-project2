@@ -104,7 +104,7 @@ function checkWeightAndHappinessBeforeUpdating() {
   }
 
   if (pet_info.weight === 0 || pet_info.happiness === 0) {
-    // disable play + exercise buttons
+    // disable play + exercise buttons when either is 0
     $('.play-button').prop('disabled', true);
     $('.play-button').addClass('disabled-btn');
 
